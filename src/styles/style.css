@@ -1,0 +1,50 @@
+.ReadOptions {
+    background-color: black;
+    color: white;
+}
+
+.titleBar {
+    background-color: black;
+    color: white;
+}
+
+.Book {
+    background-color: rgb(233, 186, 117);
+    background-image: url("../imgs/background_book.png");
+    background-size: 100% 100%;
+    background-position: center;
+}
+.Book_title,
+.Book_set {
+    color: azure;
+}
+.BookListPage,
+.ReadPage {
+    background-color: azure;
+    background-image: url("../imgs/backgroundv1_seamless.png");
+    background-repeat: repeat-y;
+    background-size: contain;
+    background-position: center;
+}
+.bookContainer {
+    box-shadow: 0px 0px 35px 6px rgba(0, 0, 0, 0.562);
+}
+
+.Chapter {
+    border-radius: 25px;
+    /* background-color:rgba(255, 255, 255, 0.25); */
+    box-shadow: 0px 0px 35px 6px rgba(0, 0, 0, 0.3);
+    /* opacity: 0.5;
+
+    background-color:rgb(122, 95, 95);
+    mix-blend-mode: color;
+     */
+}
+.Chapter_title {
+    text-shadow: 0 0 25px rgba(0, 0, 0, 0.514);
+}
+
+.Chapter p {
+    opacity: 1;
+
+}

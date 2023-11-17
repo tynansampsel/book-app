@@ -1,11 +1,10 @@
 
 import { useState, useEffect } from "react";
-import './App.css';
-import './layout.css';
-import './style.css';
-import SearchBar from './SearchBar.js';
-import BookListPage from './BookListPage.js';
-import ReadPage from './ReadPage.js';
+import './styles/App.css';
+import './styles/layout.css';
+import './styles/style.css';
+import BookListPage from './components/BookListPage.js';
+import ReadPage from './components/ReadPage.js';
 
 function App() {
     const [isSearchingPage, setIsSearchingPage] = useState(true);
