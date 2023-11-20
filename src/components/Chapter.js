@@ -8,12 +8,11 @@ function Chapter(props) {
         <div className="Chapter">
             <h2 className="Chapter_title">{`CHAPTER ${props.id + 1}`}</h2>
             <div className="verseContainer">
-                {console.log(props.verses)}
                 {
-                    props.verses.length > 0 ? props.verses.map((verse, i) => {
+                    props.verses.length > 0 && props.verses.map((verse, i) => {
                         
                         return <Verse key={i} id={i} cv={`${verse.chapterId} : ${verse.verseId}`} verse={verse.verse}/>
-                    }) : <></>
+                    })
                 }
             </div>
         </div>

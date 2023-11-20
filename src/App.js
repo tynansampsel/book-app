@@ -5,20 +5,30 @@ import './styles/layout.css';
 import './styles/style.css';
 import BookListPage from './components/BookListPage.js';
 import ReadPage from './components/ReadPage.js';
+import Navbar from './components/Navbar.js';
 
 function App() {
     const [isSearchingPage, setIsSearchingPage] = useState(true);
-    const [book, setBook] = useState(1);
-
+    const [bookId, setBookId] = useState(1);
+    const [book, setBook] = useState({});
 
 
     useEffect(() => {
-    }, [book])
+        
+    }, [bookId])
 
     const goToBook = (newBook) => {
         console.log("click")
-        setBook(newBook);
-        setIsSearchingPage(false)
+        setBook({});
+        setBookId(newBook);
+        setIsSearchingPage(false);
+
+        fetch(`https://bible-go-api.rkeplin.com/v1/books/${newBook}`)
+        .then(res => res.json())
+        .then(data => {
+            setBook(data)
+        })
+        .catch(err => console.error("error: ", err))
     }
 
     const goBackToSearch = () => {
@@ -27,13 +37,15 @@ function App() {
 
     return (
         <div className="App">
+            <Navbar isReadingBook={!isSearchingPage} book={book} goBackToSearch={goBackToSearch}/>
             {
                 isSearchingPage
                 ? <BookListPage goToBook={goToBook} />
-                : <ReadPage book={book} chapter={1} goBackToSearch={goBackToSearch} />
+                : <ReadPage bookId={bookId} chapterId={1} />
             }
         </div>
     );
 }
 
 export default App;
+// special thanks to https://www.rkeplin.com/the-holy-bible-open-source-rest-api/

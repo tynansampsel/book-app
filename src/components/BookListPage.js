@@ -15,18 +15,20 @@ function BookListPage(props) {
 
     }, [])
 
-    const hasSearchResults = () => { return books.length > 0}
+    const hasSearchResults = () => { 
+        return books.length > 0
+    }
 
     return (
         <div className="BookListPage">
-             <div className="titleBar">
+             {/* <div className="titleBar">
                 <h1 className="titleBar_header">
                     Bible App
                 </h1>
-            </div>
+            </div> */}
             <div className="bookContainer">
             {
-                hasSearchResults() ? books.map((book, i) => {
+                hasSearchResults() && books.map((book, i) => {
                     return <Book 
                     key={i} 
                     bookId={book.id} 
@@ -34,7 +36,7 @@ function BookListPage(props) {
                     set={book.genre.name} 
                     goToBook={props.goToBook}
                     />
-                }) : <></>
+                })
             }
             </div>
         </div>

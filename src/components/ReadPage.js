@@ -7,19 +7,17 @@ function ReadPage(props) {
     const [chapters, setChapters] = useState([]);
     const [book, setBook] = useState({});
     const [chaptersWithVerses, setChaptersWithVerses] = useState([]);
-    const [currentChapter, setCurrentChapter] = useState(1);
-    const [verses, setVerses] = useState([]);
 
 
     useEffect(() => {
-        fetch(`https://bible-go-api.rkeplin.com/v1/books/${props.book}/chapters`)
+        fetch(`https://bible-go-api.rkeplin.com/v1/books/${props.bookId}/chapters`)
             .then(res => res.json())
             .then(data => {
                 setChapters(data)
             })
             .catch(err => console.error("error: ", err))
 
-        fetch(`https://bible-go-api.rkeplin.com/v1/books/${props.book}`)
+        fetch(`https://bible-go-api.rkeplin.com/v1/books/${props.bookId}`)
             .then(res => res.json())
             .then(data => {
                 setBook(data)
@@ -29,7 +27,7 @@ function ReadPage(props) {
     }, [])
 
     const getVersesFromChapter = (chapter) => {
-        return fetch(`https://bible-go-api.rkeplin.com/v1/books/${props.book}/chapters/${chapter}`)
+        return fetch(`https://bible-go-api.rkeplin.com/v1/books/${props.bookId}/chapters/${chapter}`)
                 .then(res => res.json())
                 .then(data => {
                     return data
@@ -53,7 +51,7 @@ function ReadPage(props) {
 
     return (
         <div className="ReadPage">
-            <div className="ReadOptions">
+            {/* <div className="ReadOptions">
                 <div className="ReadOptions_goBackToBookList" onClick={props.goBackToSearch}>&#8249;</div>
                 <h1 className="ReadOptions_title">
                     {
@@ -66,13 +64,13 @@ function ReadPage(props) {
                         book.genre ? book.genre.name : ". . ."
                     }
                 </div>
-            </div>
+            </div> */}
             <div className="chapterContainer">
             {
-                chaptersWithVerses.length > 0 ? chaptersWithVerses.map((chapterVerses, i) => {
+                chaptersWithVerses.length > 0 && chaptersWithVerses.map((chapterVerses, i) => {
                     
                     return <Chapter key={i} id={i} verses={chapterVerses}/>
-                }) : <></>
+                })
             }
             </div>
         </div>

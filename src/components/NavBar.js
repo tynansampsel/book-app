@@ -1,34 +1,28 @@
 import { useState, useEffect } from "react";
-import Book from "./Book";
 
-
-function NavBar(props) {
-
-
+function Navbar(props) {
     return (
-        <div className="NavBar">
+        <div className="Navbar">
+            {
+                props.isReadingBook && props.book.name
+                    ? <>
+                        <div className="Navbar_goBackToBookList" onClick={props.goBackToSearch}>&#8249;</div>
+                        <h1 className="Navbar_title">
+                            {
+                                props.book.name ? props.book.name : "Bible App"
+                            }
+                        </h1>
+                        <div className="Navbar_set">
+                            {
+                                props.book.genre ? props.book.genre.name : ". . ."
+                            }
+                        </div>
 
-            {
-                props.canGoBack 
-                    ? <div className="NavBar_goBackToBookList" onClick={props.goBackToSearch}>&#8249;</div>
-                    : <></>
-            }
-            <h1 className="NavBar_title">
-                {
-                    props.name && props.isReadingBook ? props.name : "Bible App"
-                }
-            </h1>
-            {
-                props.isReadingBook
-                    ? <div className="NavBar_set">
-                        {
-                            props.set ? props.set : ". . ."
-                        }
-                    </div>
-                    : <></>
+                    </>
+                    : <h1 className="Navbar_title">Bible App</h1>
             }
         </div>
     );
 }
 
-export default NavBar;
+export default Navbar;
