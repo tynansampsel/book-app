@@ -12,28 +12,30 @@ function App() {
     const [bookId, setBookId] = useState(1);
     const [book, setBook] = useState({});
 
-
-    useEffect(() => {
-        
-    }, [bookId])
-
-    const goToBook = (newBook) => {
-        console.log("click")
+    //called by a Book in BookListPage 
+    //sets the current book to the one clicked on the BookListPage and changes to ReadPage.
+    const goToBook = (newBookId) => {
         setBook({});
-        setBookId(newBook);
+        setBookId(newBookId);
         setIsSearchingPage(false);
 
-        fetch(`https://bible-go-api.rkeplin.com/v1/books/${newBook}`)
+        fetch(`https://bible-go-api.rkeplin.com/v1/books/${newBookId}`)
         .then(res => res.json())
         .then(data => {
             setBook(data)
         })
-        .catch(err => console.error("error: ", err))
+        .catch(error => {
+            console.error("error trying to fetch book data: ", error.message)
+            throw error
+        })
     }
 
+    //called by the navbar back button on the ReadPage
+    //goes back to the BookListPage
     const goBackToSearch = () => {
         setIsSearchingPage(true)
     }
+
 
     return (
         <div className="App">
@@ -49,4 +51,3 @@ function App() {
 }
 
 export default App;
-// special thanks to https://www.rkeplin.com/the-holy-bible-open-source-rest-api/

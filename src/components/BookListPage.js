@@ -5,37 +5,33 @@ import Book from "./Book";
 function BookListPage(props) {
     const [books, setBooks] = useState([]);
 
+    //gets all the books of the bible and lists them.
     useEffect(() => {
         fetch(`https://bible-go-api.rkeplin.com/v1/books`)
         .then(res => res.json())
         .then(data => {
           setBooks(data);
         })
-        .catch(err => console.error("error: ", err))
-
+        .catch(error => {
+            console.error("error trying to fetch books: ", error.message)
+            throw error
+        })
     }, [])
 
-    const hasSearchResults = () => { 
-        return books.length > 0
-    }
 
     return (
         <div className="BookListPage">
-             {/* <div className="titleBar">
-                <h1 className="titleBar_header">
-                    Bible App
-                </h1>
-            </div> */}
             <div className="bookContainer">
             {
-                hasSearchResults() && books.map((book, i) => {
-                    return <Book 
+                books.length > 0 && books.map((book, i) => {
+                    return (
+                    <Book 
                         key={i} 
                         bookId={book.id} 
                         title={book.name} 
                         set={book.genre.name} 
                         goToBook={props.goToBook}
-                    />
+                    />)
                 })
             }
             </div>

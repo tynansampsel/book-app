@@ -1,71 +1,55 @@
 import { useState, useEffect } from "react";
 import Chapter from "./Chapter";
-import ReadOptions from "./ReadOptions";
-
 
 function ReadPage(props) {
     const [chapters, setChapters] = useState([]);
-    const [book, setBook] = useState({});
     const [chaptersWithVerses, setChaptersWithVerses] = useState([]);
 
 
+    //gets the chapters of the current book.
     useEffect(() => {
         fetch(`https://bible-go-api.rkeplin.com/v1/books/${props.bookId}/chapters`)
             .then(res => res.json())
             .then(data => {
                 setChapters(data)
             })
-            .catch(err => console.error("error: ", err))
-
-        fetch(`https://bible-go-api.rkeplin.com/v1/books/${props.bookId}`)
-            .then(res => res.json())
-            .then(data => {
-                setBook(data)
+            .catch(error => {
+                console.error("error trying to fetch chapters: ", error.message)
+                throw error
             })
-            .catch(err => console.error("error: ", err))
     }, [])
 
+
+    //used the get the verses of a chapter in the below function
     const getVersesFromChapter = (chapter) => {
         return fetch(`https://bible-go-api.rkeplin.com/v1/books/${props.bookId}/chapters/${chapter}`)
                 .then(res => res.json())
                 .then(data => {
                     return data
                 })
-                .catch(err => console.error("error: ", err));
+                .catch(error => {
+                    console.error("error trying to fetch verses from chapter: ", error.message)
+                    throw error
+                })
     }
 
+    //gets all the verses of all the chapters concurrently. 
     useEffect(() => {
         Promise.all(chapters.map(c => getVersesFromChapter(c.id)))
         .then((values) =>  setChaptersWithVerses(values) );
     }, [chapters])
 
-    const getChapterName = () => {}
-
     return (
         <div className="ReadPage">
-            {/* <div className="ReadOptions">
-                <div className="ReadOptions_goBackToBookList" onClick={props.goBackToSearch}>&#8249;</div>
-                <h1 className="ReadOptions_title">
-                    {
-                        book.name ? book.name : ". . ."
-                    }
-                </h1>
-
-                <div className="ReadOptions_set">
-                    {
-                        book.genre ? book.genre.name : ". . ."
-                    }
-                </div>
-            </div> */}
             <div className="chapterContainer">
             {
                 chaptersWithVerses.length > 0 && chaptersWithVerses.map((chapterVerses, i) => {
-                    
-                    return <Chapter 
-                            key={i} 
-                            id={i} 
-                            verses={chapterVerses}
-                    />
+                    return (
+                    <Chapter 
+                        key={i} 
+                        id={i} 
+                        verses={chapterVerses}
+                    />)
                 })
             }
             </div>
