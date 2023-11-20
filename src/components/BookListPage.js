@@ -30,11 +30,11 @@ function BookListPage(props) {
             {
                 hasSearchResults() && books.map((book, i) => {
                     return <Book 
-                    key={i} 
-                    bookId={book.id} 
-                    title={book.name} 
-                    set={book.genre.name} 
-                    goToBook={props.goToBook}
+                        key={i} 
+                        bookId={book.id} 
+                        title={book.name} 
+                        set={book.genre.name} 
+                        goToBook={props.goToBook}
                     />
                 })
             }

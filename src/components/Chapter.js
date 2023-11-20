@@ -11,7 +11,12 @@ function Chapter(props) {
                 {
                     props.verses.length > 0 && props.verses.map((verse, i) => {
                         
-                        return <Verse key={i} id={i} cv={`${verse.chapterId} : ${verse.verseId}`} verse={verse.verse}/>
+                        return <Verse 
+                            key={i} 
+                            id={i} 
+                            cv={`${verse.chapterId} : ${verse.verseId}`} 
+                            verse={verse.verse}
+                        />
                     })
                 }
             </div>

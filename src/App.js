@@ -38,6 +38,7 @@ function App() {
     return (
         <div className="App">
             <Navbar isReadingBook={!isSearchingPage} book={book} goBackToSearch={goBackToSearch}/>
+            <div className="navbarSpacer"/>
             {
                 isSearchingPage
                 ? <BookListPage goToBook={goToBook} />

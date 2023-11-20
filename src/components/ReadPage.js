@@ -23,7 +23,6 @@ function ReadPage(props) {
                 setBook(data)
             })
             .catch(err => console.error("error: ", err))
-            
     }, [])
 
     const getVersesFromChapter = (chapter) => {
@@ -35,16 +34,9 @@ function ReadPage(props) {
                 .catch(err => console.error("error: ", err));
     }
 
-    const getPromiseForEachChapter = () => {
-        //return 
-    }
-
     useEffect(() => {
         Promise.all(chapters.map(c => getVersesFromChapter(c.id)))
-        .then((values) => {
-            console.log(values);
-            setChaptersWithVerses(values);
-        });
+        .then((values) =>  setChaptersWithVerses(values) );
     }, [chapters])
 
     const getChapterName = () => {}
@@ -69,7 +61,11 @@ function ReadPage(props) {
             {
                 chaptersWithVerses.length > 0 && chaptersWithVerses.map((chapterVerses, i) => {
                     
-                    return <Chapter key={i} id={i} verses={chapterVerses}/>
+                    return <Chapter 
+                            key={i} 
+                            id={i} 
+                            verses={chapterVerses}
+                    />
                 })
             }
             </div>

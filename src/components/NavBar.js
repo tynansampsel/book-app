@@ -6,7 +6,11 @@ function Navbar(props) {
             {
                 props.isReadingBook && props.book.name
                     ? <>
-                        <div className="Navbar_goBackToBookList" onClick={props.goBackToSearch}>&#8249;</div>
+                        <div 
+                            className="Navbar_goBackToBookList" 
+                            onClick={props.goBackToSearch}>
+                            &#8249;
+                        </div>
                         <h1 className="Navbar_title">
                             {
                                 props.book.name ? props.book.name : "Bible App"
